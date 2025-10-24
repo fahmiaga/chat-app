@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         resources :messages, only: [ :create, :index ]
       end
       resources :users, only: [ :index ]
+      post "chatrooms/personal", to: "chatrooms#personal"
     end
   end
   mount ActionCable.server => "/cable"

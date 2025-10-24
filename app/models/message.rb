@@ -4,5 +4,10 @@ class Message < ApplicationRecord
 
   validates :content, presence: true
 
-  after_create_commit { broadcast_append_to "chatroom_#{chatroom_id}" }
+  after_create_commit do
+    ActionCable.server.broadcast(
+      "chatroom_#{chatroom_id}",
+      as_json(include: :user)
+    )
+  end
 end

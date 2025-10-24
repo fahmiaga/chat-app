@@ -1,5 +1,9 @@
 class MessagesChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "chatroom_#{params[:chatroom_id]}"
+    chatroom = Chatroom.find(params[:chatroom_id])
+    stream_for chatroom
+  end
+
+  def unsubscribed
   end
 end
