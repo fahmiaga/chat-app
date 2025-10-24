@@ -3,7 +3,7 @@ class Chatroom < ApplicationRecord
   has_many :users, through: :chatroom_users
   has_many :messages, dependent: :destroy
 
-  enum chat_type: { group: 0, personal: 1 }
+  enum :chat_type, { group_chat: 0, personal: 1 }
 
   validates :name, presence: true, if: :group?
 end
