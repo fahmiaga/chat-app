@@ -5,7 +5,7 @@ module Api
       before_action :set_chatroom, only: [ :show, :update, :destroy ]
 
       def index
-        chatrooms = Chatroom.includes(:users)
+        chatrooms = current_user.chatrooms.includes(:users)
         render json: chatrooms.as_json(include: :users)
       end
 
@@ -17,7 +17,9 @@ module Api
         chatroom = Chatroom.new(chatroom_params)
 
         if chatroom.save
-          chatroom.user_ids = params[:user_ids] if params[:user_ids].present?
+          user_ids = params[:user_ids] || []
+          user_ids << current_user.id unless user_ids.include?(current_user.id)
+          chatroom.user_ids = user_ids
           render json: chatroom.as_json(include: :users), status: :created
         else
           render json: { errors: chatroom.errors.full_messages }, status: :unprocessable_entity
@@ -31,8 +33,11 @@ module Api
       end
 
       def personal
-        chatroom = Chatroom.find_or_create_personal_chat(params[:user1_id], params[:user2_id])
-        render json: chatroom.as_json(include: :users), status: :ok
+        other_user = User.find(params[:user_id])
+
+        chatroom = Chatroom.find_or_create_personal_chat(current_user.id, other_user.id)
+
+        render json: chatroom.as_json(include: :users), status: :created
       end
 
       private

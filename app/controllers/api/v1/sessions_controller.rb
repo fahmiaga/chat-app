@@ -25,12 +25,6 @@ module Api
           render json: { user: nil }, status: :ok
         end
       end
-
-      private
-
-      def current_user
-        @current_user ||= User.find_by(id: session[:current_user_id])
-      end
     end
   end
 end

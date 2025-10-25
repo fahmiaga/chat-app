@@ -22,8 +22,8 @@ module Api
 
       private
 
-      def current_user
-        @current_user ||= User.find_by(id: session[:current_user_id])
+      def message_params
+        params.require(:message).permit(:chatroom_id, :user_id, :content)
       end
     end
   end
