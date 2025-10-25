@@ -12,8 +12,7 @@ module Api
       end
 
       def create
-        message = Message.new(message_params)
-
+        message = current_user.messages.build(message_params)
         if message.save
           render json: message.as_json(include: :user), status: :created
         else
@@ -23,8 +22,8 @@ module Api
 
       private
 
-      def message_params
-        params.require(:message).permit(:chatroom_id, :user_id, :content)
+      def current_user
+        @current_user ||= User.find_by(id: session[:current_user_id])
       end
     end
   end

@@ -17,8 +17,8 @@ User.destroy_all
 
 
 User.create!([
-  { name: "Fahmi", email: "fahmi@example.com" },
-  { name: "John Doe", email: "john_doe@example.com" },
-  { name: "Jane doe", email: "janedoe@example.com" },
-  { name: "Bob Sponge", email: "bob_sponge@example.com" }
+  { name: "Fahmi", email: "fahmi@example.com", password: "password" },
+  { name: "John Doe", email: "john_doe@example.com", password: "password" },
+  { name: "Jane doe", email: "janedoe@example.com", password: "password" },
+  { name: "Bob Sponge", email: "bob_sponge@example.com", password: "password" }
 ])

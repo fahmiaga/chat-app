@@ -18,6 +18,10 @@ Rails.application.routes.draw do
       end
       resources :users, only: [ :index ]
       post "chatrooms/personal", to: "chatrooms#personal"
+      post "register", to: "users#create"
+      post "login", to: "sessions#create"
+      delete "logout", to: "sessions#destroy"
+      get "current_user", to: "sessions#show"
     end
   end
   mount ActionCable.server => "/cable"
