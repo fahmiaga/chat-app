@@ -79,7 +79,15 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
-  config.require_master_key = true
+  config.require_master_key = false
+
+  config.secret_key_base = ENV.fetch("SECRET_KEY_BASE") do
+  if File.exist?("config/credentials.yml")
+    YAML.load_file("config/credentials.yml")["secret_key_base"]
+  else
+    "fallback_key_#{Rails.env}_#{SecureRandom.hex(64)}"
+  end
+end
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
