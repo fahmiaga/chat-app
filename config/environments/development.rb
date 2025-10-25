@@ -74,6 +74,7 @@ Rails.application.configure do
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "ws://localhost:3000",
-    "ws://127.0.0.1:3000"
+    "ws://127.0.0.1:3000",
+    "http://localhost:5173"
   ]
 end

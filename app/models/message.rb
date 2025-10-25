@@ -1,13 +1,21 @@
 class Message < ApplicationRecord
-  belongs_to :user
   belongs_to :chatroom
+  belongs_to :user
 
-  validates :content, presence: true
+  after_create_commit :broadcast_message
 
-  after_create_commit do
-    ActionCable.server.broadcast(
-      "chatroom_#{chatroom_id}",
-      as_json(include: :user)
-    )
+  private
+
+  def broadcast_message
+    MessagesChannel.broadcast_to(chatroom, {
+      id: id,
+      content: content,
+      chatroom_id: chatroom_id,
+      user: {
+        id: user.id,
+        name: user.name
+      },
+      created_at: created_at
+    })
   end
 end
