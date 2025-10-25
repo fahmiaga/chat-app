@@ -19,7 +19,19 @@ module Api
         if chatroom.save
           user_ids = params[:user_ids] || []
           user_ids << current_user.id unless user_ids.include?(current_user.id)
+
           chatroom.user_ids = user_ids
+          chatroom.save!
+
+          chatroom.users.each do |user|
+            payload = {
+              action: "new_chatroom",
+              chatroom: chatroom.as_json(include: :users)
+            }
+
+            ActionCable.server.broadcast("chatrooms:#{user.id}", payload)
+          end
+
           render json: chatroom.as_json(include: :users), status: :created
         else
           render json: { errors: chatroom.errors.full_messages }, status: :unprocessable_entity
@@ -34,11 +46,20 @@ module Api
 
       def personal
         other_user = User.find(params[:user_id])
-
         chatroom = Chatroom.find_or_create_personal_chat(current_user.id, other_user.id)
+
+        [ current_user, other_user ].each do |user|
+           payload = {
+              action: "new_chatroom",
+              chatroom: chatroom.as_json(include: :users)
+            }
+
+            ActionCable.server.broadcast("chatrooms:#{user.id}", payload)
+        end
 
         render json: chatroom.as_json(include: :users), status: :created
       end
+
 
       private
 
