@@ -6,7 +6,7 @@ module Api
 
       def index
         chatroom = Chatroom.find(params[:chatroom_id])
-        messages = chatroom.messages.includes(:user).order(:created_at)
+        messages = chatroom&.messages&.includes(:user).order(:created_at)
 
         render json: messages.as_json(include: :user)
       end
