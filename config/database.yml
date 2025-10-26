@@ -14,18 +14,12 @@ development:
   timeout: 5000
   database: Chatapp_Developement
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   database: Chatapp_Test
 
-
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   <<: *default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -36,15 +30,31 @@ production:
   port: <%= ENV['PGPORT'] %>
 
 cable:
-    adapter: postgresql
-    database: <%= ENV['PGDATABASE'] %>
-    username: <%= ENV['PGUSER'] %>
-    password: <%= ENV['PGPASSWORD'] %>
-    host: <%= ENV['PGHOST'] %>
-    port: <%= ENV['PGPORT'] %>
+  <<: *default
+  database: <%= ENV['PGDATABASE'] %>
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: <%= ENV['PGHOST'] %>
+  port: <%= ENV['PGPORT'] %>
 
 queue:
-  adapter: postgresql
+  <<: *default
+  database: <%= ENV['PGDATABASE'] %>
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: <%= ENV['PGHOST'] %>
+  port: <%= ENV['PGPORT'] %>
+
+cache:
+  <<: *default
+  database: <%= ENV['PGDATABASE'] %>
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: <%= ENV['PGHOST'] %>
+  port: <%= ENV['PGPORT'] %>
+
+broadcasts:
+  <<: *default
   database: <%= ENV['PGDATABASE'] %>
   username: <%= ENV['PGUSER'] %>
   password: <%= ENV['PGPASSWORD'] %>
