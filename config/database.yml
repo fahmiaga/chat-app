@@ -35,3 +35,11 @@ production:
   host: <%= ENV['PGHOST'] %>
   port: <%= ENV['PGPORT'] %>
 
+cable:
+    adapter: postgresql
+    database: <%= ENV['PGDATABASE'] %>
+    username: <%= ENV['PGUSER'] %>
+    password: <%= ENV['PGPASSWORD'] %>
+    host: <%= ENV['PGHOST'] %>
+    port: <%= ENV['PGPORT'] %>
+
