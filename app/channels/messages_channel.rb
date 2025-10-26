@@ -14,8 +14,6 @@ class MessagesChannel < ApplicationCable::Channel
       user_id: current_user.id,
       user_name: current_user.name
     )
-
-    puts "======================================#{current_user.inspect}"
   end
 
   def stop_typing(_data)
