@@ -89,8 +89,8 @@ Rails.application.configure do
   end
   config.action_cable.url = "wss://chat-app-production-5749.up.railway.app/cable"
   config.action_cable.allowed_request_origins = [
-    %r{https?://chat-app-production-5749\.up\.railway\.app(:\d+)?},
-    %r{https?://chat-app-vue-gamma\.vercel\.app(:\d+)?}
+    "https://chat-app-production-5749.up.railway.app",
+    "https://chat-app-vue-gamma.vercel.app"
   ]
 end
 
