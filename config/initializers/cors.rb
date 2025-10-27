@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://localhost:5173", "https://chat-app-production-5749.up.railway.app"
+    origins "http://localhost:5173", "https://chat-app-production-5749.up.railway.app", "https://chat-app-vue-gamma.vercel.app"
 
     resource "*",
       headers: :any,

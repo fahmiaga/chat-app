@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_cable.url = "wss://chat-app-production-5749.up.railway.app/cable"
   config.action_cable.allowed_request_origins = [
     /https?:\/\/chat-app-production-5749\.up\.railway\.app.*/,
-    /http:\/\/localhost:5173/
+    /https?:\/\/chat-app-vue-gamma\.vercel\.app/
   ]
 end
 
