@@ -5,7 +5,7 @@ module Api
       before_action :set_chatroom, only: [ :show, :update, :destroy ]
 
       def index
-        chatrooms = current_user&.chatrooms&.includes(:users)
+        chatrooms = current_user&.chatrooms&.includes(:users) || []
         render json: chatrooms.as_json(include: :users)
       end
 
